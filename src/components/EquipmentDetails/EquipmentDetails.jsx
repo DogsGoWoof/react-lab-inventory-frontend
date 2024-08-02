@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { AuthedUserContext } from '../../App';
 import { useState, useEffect, useContext } from 'react';
+
 import * as equipmentService from '../../services/equipmentService';
 
 import styles from '../ReagentDetails/ReagentDetails.module.css';

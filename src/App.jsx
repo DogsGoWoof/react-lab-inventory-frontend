@@ -1,5 +1,5 @@
-import { useState, createContext, useEffect } from 'react'; // added useEffect import
-import { Routes, Route, useNavigate } from 'react-router-dom'; // added useNavigate import
+import { useState, createContext, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 //___Components___//
 import NavBar from './components/NavBar/NavBar';
@@ -16,8 +16,8 @@ import EquipmentForm from './components/EquipmentForm/EquipmentForm';
 import EquipmentDetails from './components/EquipmentDetails/EquipmentDetails';
 
 //___Services___//
-import * as authService from '../src/services/authService'; // import the authservice
-import * as reagentService from '../src/services/reagentService'; // created and imported reagentService for back-end requests
+import * as authService from '../src/services/authService';
+import * as reagentService from '../src/services/reagentService';
 import * as equipmentService from '../src/services/equipmentService';
 
 import './App.css';
@@ -26,16 +26,16 @@ export const AuthedUserContext = createContext(null);
 
 const App = () => {
 
-  const [user, setUser] = useState(authService.getUser()); // using the method from authservice
-  const [reagents, setReagents] = useState([]); // created reagents state
-  const [equipments, setEquipments] = useState([]); // created equipment state
+  const [user, setUser] = useState(authService.getUser());
+  const [reagents, setReagents] = useState([]);
+  const [equipments, setEquipments] = useState([]);
 
   const handleSignout = () => {
     authService.signout();
     setUser(null);
   };
 
-  const navigate = useNavigate(); // assigned useNavigate() function to variable 'navigate'
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllReagents = async () => {
@@ -45,6 +45,15 @@ const App = () => {
     if (user) fetchAllReagents();
   }, [user]);
 
+  useEffect(() => {
+    const fetchAllEquipments = async () => {
+      const equipmentsData = await equipmentService.index();
+      setEquipments(equipmentsData);
+    };
+    if (user) fetchAllEquipments();
+  }, [user]);
+
+  //___Reagent Handlers___//
   const handleAddReagent = async (reagentFormData) => {
     const newReagent = await reagentService.create(reagentFormData);
     setReagents([newReagent, ...reagents]);
@@ -61,15 +70,7 @@ const App = () => {
     navigate(`/reagents/${reagentId}`);
   };
 
-  useEffect(() => {
-    const fetchAllEquipments = async () => {
-      const equipmentsData = await equipmentService.index();
-      setEquipments(equipmentsData);
-    };
-    if (user) fetchAllEquipments();
-  }, [user]);
-
-  //___Equipment Handlers___\\
+  //___Equipment Handlers___//
   const handleAddEquipment = async (equipmentFormData) => {
     const newEquipments = await equipmentService.create(equipmentFormData);
     setEquipments([newEquipments, ...equipments]);

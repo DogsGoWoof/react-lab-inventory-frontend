@@ -68,61 +68,10 @@ const updateEquipment = async (equipmentId, equipmentFormData) => {
     }
 };
 
-//___Comment Related Services__//
-
-// const createComment = async (equipmentId, commentFormData) => {
-//     try {
-//         const res = await fetch(`${BASE_URL}/${equipmentId}/comments`, {
-//             method: 'POST',
-//             headers: {
-//                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(commentFormData),
-//         });
-//         return res.json();
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-
-// const deleteComment = async (equipmentId, commentId) => {
-//     try {
-//         const res = await fetch(`${BASE_URL}/${equipmentId}/comments/${commentId}`, {
-//             method: 'DELETE',
-//             headers: {
-//                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-//             },
-//         });
-//         return res.json();
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-
-// const updateComment = async (equipmentId, commentId, commentFormData) => {
-//     try {
-//         const res = await fetch(`${BASE_URL}/${equipmentId}/comments/${commentId}`, {
-//             method: 'PUT',
-//             headers: {
-//                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(commentFormData),
-//         });
-//         return res.json();
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-
 export {
     index,
     show,
     create,
     deleteEquipment,
     updateEquipment,
-    // createComment,
-    // deleteComment,
-    // updateComment,
 };
